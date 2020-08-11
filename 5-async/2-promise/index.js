@@ -4,15 +4,14 @@ function fetchData(url) {
     // <-- start
     // TODO 22: 通过Promise实现异步请求
     xhr.open('GET', url, true);
-    xhr.onreadystatechange = () => {
-      if (xhr.readyState === 4) {
-        if (xhr.status === 200) {
-          resolve(xhr.response);
-        } else {
-          reject(xhr.response);
-        }
+    xhr.onload = () => {
+      if (xhr.status === 200) {
+        resolve(xhr.responseText);
+      } else {
+        reject(new Error(`${xhr.status} ${xhr.statusText}`));
       }
     };
+    xhr.onerror = err => reject(err);
     xhr.send();
     // end -->
   });

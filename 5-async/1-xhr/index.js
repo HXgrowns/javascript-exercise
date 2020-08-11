@@ -3,15 +3,14 @@ function fetchData(url, successCallback, errorCallback) {
   // <-- start
   // TODO 21: 通过XMLHttpRequest实现异步请求
   xhr.open('GET', url, true);
-  xhr.onreadystatechange = () => {
-    if (xhr.readyState === 4) {
-      if (xhr.status === 200) {
-        successCallback(xhr.response);
-      } else {
-        errorCallback(xhr.response);
-      }
+  xhr.onload = () => {
+    if (xhr.status === 200) {
+      successCallback(xhr.responseText);
+    } else {
+      errorCallback(new Error(`${xhr.status} ${xhr.statusText}`));
     }
   };
+  xhr.onerror = err => errorCallback(err);
   xhr.send();
   // end -->
 }

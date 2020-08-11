@@ -6,9 +6,9 @@ function fetchData(url, successCallback, errorCallback) {
   xhr.onreadystatechange = () => {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
-        successCallback(xhr);
+        successCallback(xhr.response);
       } else {
-        errorCallback(xhr);
+        errorCallback(xhr.response);
       }
     }
   };
